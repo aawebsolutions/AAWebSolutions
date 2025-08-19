@@ -26,6 +26,107 @@
     <!-- Email Button -->
     <a href="mailto:contact.aawebsolutions@gmail.com" class="btn">Email Us</a>
     
+    <!-- Consultation Booking Section -->
+<section id="consultation" class="consultation">
+  <h2>Book a 1-Hour Consultation</h2>
+  <p>Choose a time slot for your 1-hour consultation. All bookings will be added to our Google Calendar.</p>
+
+  <!-- Time Picker (Scrolling Wheel) -->
+  <div id="time-picker">
+    <label for="time-slot">Select a Time Slot</label>
+    <input type="text" id="time-slot" readonly />
+  </div>
+
+  <div class="booking-details">
+    <p><strong>Selected Time:</strong> <span id="selected-time"></span></p>
+    <button id="book-btn" disabled>Book Now</button>
+  </div>
+</section>
+
+<!-- Add jQuery and a time picker library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/roug.js"></script> <!-- for Time Picker -->
+
+<script>
+  // Define available slots (9 AM to 9 PM in 1-hour intervals)
+  const timeSlots = [
+    "9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", 
+    "3:00 PM", "4:00 PM", "5:00 PM", "6:00 PM", "7:00 PM", "8:00 PM"
+  ];
+
+  // Initialize Scrolling Wheel
+  $(document).ready(function() {
+    // Create Scrolling Wheel
+    $('#time-slot').wheelTimePicker({
+      data: timeSlots,
+      wheelSpeed: 20,
+      height: 200,
+      onSelect: function(selected) {
+        $('#selected-time').text(selected);
+        $('#book-btn').prop('disabled', false); // Enable booking button
+      }
+    });
+  });
+
+  // Handle Booking Request
+  $('#book-btn').click(function() {
+    const selectedTime = $('#selected-time').text();
+    if (selectedTime) {
+      // Send selected time to the server for Google Calendar Booking
+      $.ajax({
+        url: "/api/book",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify({
+          time: selectedTime
+        }),
+        success: function(response) {
+          alert('Booking Successful!');
+        },
+        error: function() {
+          alert('Booking failed. Please try again.');
+        }
+      });
+    }
+  });
+</script>
+
+<style>
+  .consultation {
+    padding: 40px;
+    text-align: center;
+  }
+  
+  .booking-details {
+    margin-top: 20px;
+  }
+  
+  #time-picker {
+    margin-bottom: 20px;
+  }
+  
+  #time-slot {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  #book-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  #book-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+</style>
+
     <!-- Google Calendar Invite Button -->
     <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Meeting+with+AA+Websolutions&details=Let%27s+discuss+your+project!&location=Online&dates=20250820T120000Z/20250820T130000Z" 
        target="_blank" 
