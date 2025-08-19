@@ -5,6 +5,18 @@
   box-sizing: border-box;
 }
 
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+              url('AA.jpg') center/cover no-repeat;
+  color: #fff;
+  text-align: center;
+  height: 100vh;   /* ✅ Full screen height */
+  display: flex;   /* ✅ Center content vertically & horizontally */
+  justify-content: center;
+  align-items: center;
+  padding: 0 20px; /* ✅ Keep some side padding for text */
+}
+
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
