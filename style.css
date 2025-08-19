@@ -5,18 +5,6 @@
   box-sizing: border-box;
 }
 
-.hero {
-  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
-              url('AA.jpg') center/cover no-repeat;
-  color: #fff;
-  text-align: center;
-  height: 100vh;   /* ✅ Full screen height */
-  display: flex;   /* ✅ Center content vertically & horizontally */
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px; /* ✅ Keep some side padding for text */
-}
-
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
@@ -33,6 +21,11 @@ header {
   background: #111;
   color: #fff;
   padding: 15px 30px;
+  position: fixed;      /* ✅ keeps navbar on top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 nav {
@@ -69,7 +62,13 @@ nav {
               url('AA.jpg') center/cover no-repeat;
   color: #fff;
   text-align: center;
-  padding: 100px 20px;
+  height: 100vh;             /* ✅ full screen */
+  display: flex;             /* ✅ center contents */
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;    /* stack heading, text, button */
+  padding: 0 20px;
+  margin-top: 70px;          /* ✅ prevent header overlap */
 }
 
 .hero h2 {
@@ -99,7 +98,7 @@ nav {
 
 /* Sections */
 section {
-  padding: 60px 20px;
+  padding: 80px 20px; /* extra padding since navbar is fixed */
   text-align: center;
 }
 
@@ -134,4 +133,5 @@ footer {
   color: #fff;
   text-align: center;
   padding: 20px;
+  margin-top: 40px;
 }
